@@ -1,0 +1,21 @@
+<nav class="navbar">
+  <div class="navbar-inner flex align-items-center justify-content-between">
+    <a href="/" class="brand flex align-items-center gap-2 no-underline">
+      <img src="logo-prompt-hub.png" alt="Prompt Hub" />
+      <span class="brand-name">Prompt Hub</span>
+    </a>
+
+    <div class="flex align-items-center gap-2">
+      <p-button
+        [icon]="isDark() ? 'pi pi-sun' : 'pi pi-moon'"
+        [ariaLabel]="isDark() ? 'Mode clair' : 'Mode sombre'"
+        size="small"
+        severity="secondary"
+        [text]="true"
+        (onClick)="toggleDarkMode()"
+      />
+      <p-button icon="pi pi-plus" label="Nouveau prompt" size="small" />
+      <p-button icon="pi pi-user" label="Connexion" size="small" [outlined]="true" />
+    </div>
+  </div>
+</nav>

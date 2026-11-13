@@ -1,4 +1,5 @@
 import { Component, effect, signal } from '@angular/core'
+import { RouterLink } from '@angular/router'
 import { Button } from 'primeng/button'
 
 const STORAGE_KEY = 'theme'
@@ -13,7 +14,7 @@ function initialDark(): boolean {
 
 @Component({
   selector: 'app-navbar',
-  imports: [Button],
+  imports: [Button, RouterLink],
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',
 })

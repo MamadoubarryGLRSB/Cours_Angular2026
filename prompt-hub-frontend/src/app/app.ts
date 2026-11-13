@@ -1,9 +1,10 @@
 import { Component } from '@angular/core'
-import { PromptList } from './prompts/prompt-list/prompt-list'
+import { RouterOutlet } from '@angular/router'
 import { Navbar } from './prompts/navbar/navbar'
+
 @Component({
   selector: 'app-root',
-  imports: [PromptList, Navbar],
+  imports: [Navbar, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

@@ -13,6 +13,22 @@ body {
   background: var(--p-surface-950);
 }
 
+// Form errors: red border + message once the field is touched
+.p-inputtext.ng-invalid.ng-touched,
+.p-textarea.ng-invalid.ng-touched,
+.p-select.ng-invalid.ng-touched {
+  border-color: var(--p-inputtext-invalid-border-color);
+}
+
+.invalid-feedback {
+  display: none;
+  color: var(--p-red-500);
+}
+
+.ng-invalid.ng-touched + .invalid-feedback {
+  display: block;
+}
+
 .container {
   max-width: 40rem;
   margin-left: auto;

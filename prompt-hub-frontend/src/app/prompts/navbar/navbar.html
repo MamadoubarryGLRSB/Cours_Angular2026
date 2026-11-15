@@ -14,7 +14,12 @@
         [text]="true"
         (onClick)="toggleDarkMode()"
       />
-      <p-button routerLink="/prompts/create" icon="pi pi-plus" label="Nouveau prompt" size="small" />
+      <p-button
+        routerLink="/prompts/create"
+        icon="pi pi-plus"
+        label="Nouveau prompt"
+        size="small"
+      />
       @if (authService.currentUser(); as currentUser) {
         <span class="text-sm text-color-secondary">{{ currentUser.username }}</span>
         <p-button
@@ -26,7 +31,13 @@
           (onClick)="logout()"
         />
       } @else {
-        <p-button routerLink="/auth" icon="pi pi-user" label="Connexion" size="small" [outlined]="true" />
+        <p-button
+          routerLink="/auth"
+          icon="pi pi-user"
+          label="Connexion"
+          size="small"
+          [outlined]="true"
+        />
       }
     </div>
   </div>

@@ -23,9 +23,14 @@
       <p-button
         severity="secondary"
         (onClick)="toggleMode()"
+        [disabled]="submitting()"
         [label]="mode() === 'login' ? 'Créer un compte' : 'Se connecter'"
       />
-      <p-button type="submit" [label]="mode() === 'login' ? 'Connexion' : 'Créer le compte'" />
+      <p-button
+        type="submit"
+        [label]="mode() === 'login' ? 'Connexion' : 'Créer le compte'"
+        [loading]="submitting()"
+      />
     </div>
   </form>
 </p-card>

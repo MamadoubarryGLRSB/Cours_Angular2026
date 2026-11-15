@@ -6,6 +6,7 @@ import { Button } from 'primeng/button'
 import { Card } from 'primeng/card'
 import { InputText } from 'primeng/inputtext'
 import { Password } from 'primeng/password'
+import { finalize } from 'rxjs'
 import { AuthService } from '../../auth/auth-service'
 
 @Component({
@@ -20,6 +21,7 @@ export class AuthForm {
   messageService = inject(MessageService)
 
   mode = signal<'login' | 'register'>('login')
+  submitting = signal(false)
 
   form = new FormGroup({
     username: new FormControl('', {
@@ -38,10 +40,12 @@ export class AuthForm {
   }
 
   submit() {
+    if (this.submitting()) return
     this.form.markAllAsTouched()
     if (this.form.invalid) return
 
     const { username, password } = this.form.getRawValue()
+    this.submitting.set(true)
     if (this.mode() === 'login') {
       this.login(username, password)
     } else {
@@ -50,17 +54,23 @@ export class AuthForm {
   }
 
   login(username: string, password: string) {
-    this.authService.login(username, password).subscribe({
-      next: (user) => this.onSuccess(`Bienvenue ${user.username}`),
-      error: () => this.onError("Nom d'utilisateur ou mot de passe incorrect"),
-    })
+    this.authService
+      .login(username, password)
+      .pipe(finalize(() => this.submitting.set(false)))
+      .subscribe({
+        next: (user) => this.onSuccess(`Bienvenue ${user.username}`),
+        error: () => this.onError("Nom d'utilisateur ou mot de passe incorrect"),
+      })
   }
 
   register(username: string, password: string) {
-    this.authService.register(username, password).subscribe({
-      next: (user) => this.onSuccess(`Compte créé, bienvenue ${user.username}`),
-      error: () => this.onError("Impossible de créer le compte (nom d'utilisateur déjà pris ?)"),
-    })
+    this.authService
+      .register(username, password)
+      .pipe(finalize(() => this.submitting.set(false)))
+      .subscribe({
+        next: (user) => this.onSuccess(`Compte créé, bienvenue ${user.username}`),
+        error: () => this.onError("Impossible de créer le compte (nom d'utilisateur déjà pris ?)"),
+      })
   }
 
   private onSuccess(detail: string) {

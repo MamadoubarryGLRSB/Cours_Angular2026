@@ -1,4 +1,9 @@
-import { ApplicationConfig, inject, provideAppInitializer, provideBrowserGlobalErrorListeners } from '@angular/core'
+import {
+  ApplicationConfig,
+  inject,
+  provideAppInitializer,
+  provideBrowserGlobalErrorListeners,
+} from '@angular/core'
 import { provideHttpClient, withInterceptors } from '@angular/common/http'
 import { provideRouter, withComponentInputBinding } from '@angular/router'
 import { definePreset } from '@primeuix/themes'
@@ -24,6 +29,16 @@ const promptPreset = definePreset(Aura, {
       800: '{indigo.800}',
       900: '{indigo.900}',
       950: '{indigo.950}',
+    },
+  },
+  components: {
+    progressspinner: {
+      root: {
+        colorOne: '{primary.500}',
+        colorTwo: '{primary.500}',
+        colorThree: '{primary.500}',
+        colorFour: '{primary.500}',
+      },
     },
   },
 })

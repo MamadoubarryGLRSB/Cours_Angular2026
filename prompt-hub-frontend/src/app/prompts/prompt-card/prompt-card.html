@@ -6,7 +6,12 @@
     </div>
     <div class="flex gap-2">
       @if (canEdit()) {
-        <p-button [routerLink]="['/prompts', prompt().id, 'edit']" icon="pi pi-pencil" size="small" text="true" />
+        <p-button
+          [routerLink]="['/prompts', prompt().id, 'edit']"
+          icon="pi pi-pencil"
+          size="small"
+          text="true"
+        />
       }
       <p-button
         icon="pi pi-copy"
@@ -25,6 +30,7 @@
         icon="pi pi-thumbs-up"
         [severity]="userVote() === 'up' ? 'primary' : 'secondary'"
         ariaLabel="Upvote"
+        [disabled]="voting()"
         (onClick)="upvote()"
       />
       <span class="text-lg px-1">{{ score() }}</span>
@@ -32,6 +38,7 @@
         icon="pi pi-thumbs-down"
         [severity]="userVote() === 'down' ? 'primary' : 'secondary'"
         ariaLabel="Downvote"
+        [disabled]="voting()"
         (onClick)="downvote()"
       />
     </div>

@@ -15,7 +15,19 @@
         (onClick)="toggleDarkMode()"
       />
       <p-button routerLink="/prompts/create" icon="pi pi-plus" label="Nouveau prompt" size="small" />
-      <p-button icon="pi pi-user" label="Connexion" size="small" [outlined]="true" />
+      @if (authService.currentUser(); as currentUser) {
+        <span class="text-sm text-color-secondary">{{ currentUser.username }}</span>
+        <p-button
+          icon="pi pi-sign-out"
+          label="Déconnexion"
+          size="small"
+          severity="secondary"
+          [outlined]="true"
+          (onClick)="logout()"
+        />
+      } @else {
+        <p-button routerLink="/auth" icon="pi pi-user" label="Connexion" size="small" [outlined]="true" />
+      }
     </div>
   </div>
 </nav>

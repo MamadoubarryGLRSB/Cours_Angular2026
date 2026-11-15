@@ -1,6 +1,8 @@
-import { Component, effect, signal } from '@angular/core'
-import { RouterLink } from '@angular/router'
+import { Component, effect, inject, signal } from '@angular/core'
+import { Router, RouterLink } from '@angular/router'
+import { MessageService } from 'primeng/api'
 import { Button } from 'primeng/button'
+import { AuthService } from '../../auth/auth-service'
 
 const STORAGE_KEY = 'theme'
 
@@ -19,6 +21,9 @@ function initialDark(): boolean {
   styleUrl: './navbar.scss',
 })
 export class Navbar {
+  router = inject(Router)
+  authService = inject(AuthService)
+  messageService = inject(MessageService)
   isDark = signal(initialDark())
 
   constructor() {
@@ -33,5 +38,12 @@ export class Navbar {
 
   toggleDarkMode() {
     this.isDark.update((dark) => !dark)
+  }
+
+  logout() {
+    this.authService.logout().subscribe(() => {
+      this.messageService.add({ severity: 'info', summary: 'Déconnexion', detail: 'À bientôt !' })
+      void this.router.navigate(['/'])
+    })
   }
 }

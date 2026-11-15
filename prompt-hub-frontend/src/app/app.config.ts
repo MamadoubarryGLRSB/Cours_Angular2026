@@ -1,11 +1,14 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core'
-import { provideHttpClient } from '@angular/common/http'
-import { provideRouter } from '@angular/router'
+import { ApplicationConfig, inject, provideAppInitializer, provideBrowserGlobalErrorListeners } from '@angular/core'
+import { provideHttpClient, withInterceptors } from '@angular/common/http'
+import { provideRouter, withComponentInputBinding } from '@angular/router'
 import { definePreset } from '@primeuix/themes'
 import Aura from '@primeuix/themes/aura'
+import { ConfirmationService, MessageService } from 'primeng/api'
 import { providePrimeNG } from 'primeng/config'
 
 import { routes } from './app.routes'
+import { AuthService } from './auth/auth-service'
+import { authInterceptor } from './auth/auth-interceptor-interceptor'
 
 const promptPreset = definePreset(Aura, {
   semantic: {
@@ -27,9 +30,13 @@ const promptPreset = definePreset(Aura, {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    // Attend /auth/me avant d'afficher l'app : le guard connaît déjà l'utilisateur
+    provideAppInitializer(() => inject(AuthService).loadCurrentUser()),
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes),
-    provideHttpClient(),
+    provideRouter(routes, withComponentInputBinding()),
+    provideHttpClient(withInterceptors([authInterceptor])),
+    MessageService,
+    ConfirmationService,
     providePrimeNG({
       theme: {
         preset: promptPreset,

@@ -21,9 +21,19 @@
   <div class="flex justify-content-between align-items-center">
     <p-tag [value]="prompt().category.name" />
     <div class="flex gap-2 align-items-center">
-      <p-button icon="pi pi-thumbs-up" severity="secondary" ariaLabel="Upvote" />
-      <span class="text-lg px-1">{{ prompt().score }}</span>
-      <p-button icon="pi pi-thumbs-down" severity="secondary" ariaLabel="Downvote" />
+      <p-button
+        icon="pi pi-thumbs-up"
+        [severity]="userVote() === 'up' ? 'primary' : 'secondary'"
+        ariaLabel="Upvote"
+        (onClick)="upvote()"
+      />
+      <span class="text-lg px-1">{{ score() }}</span>
+      <p-button
+        icon="pi pi-thumbs-down"
+        [severity]="userVote() === 'down' ? 'primary' : 'secondary'"
+        ariaLabel="Downvote"
+        (onClick)="downvote()"
+      />
     </div>
   </div>
 </p-card>

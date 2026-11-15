@@ -1,3 +1,14 @@
-@for (prompt of prompts(); track prompt.id){
+@for (prompt of pagedPrompts(); track prompt.id) {
   <app-prompt-card [prompt]="prompt"></app-prompt-card>
+}
+
+<!-- 3 = plus petite option : le paginator reste visible même si on choisit 12 par page -->
+@if (prompts().length > 3) {
+  <p-paginator
+    [first]="first()"
+    [rows]="rows()"
+    [totalRecords]="prompts().length"
+    [rowsPerPageOptions]="[3, 6, 12]"
+    (onPageChange)="onPageChange($event)"
+  />
 }

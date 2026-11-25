@@ -1,6 +1,6 @@
 # Cours Angular 2026 — Prompt Hub
 
-Application de partage de prompts IA, réalisée en suivant un cours Angular.
+Application de partage de prompts IA.
 
 - `prompt-hub-frontend/` : Angular 21 + PrimeNG
 - `prompt-hub-backend/` : API NestJS (données dans `data/db.json`)
